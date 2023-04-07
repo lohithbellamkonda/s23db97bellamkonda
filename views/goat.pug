@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  - let results = [{goat_color:"Black",goat_size:"small",goat_weight:"50kg", goat_speed:"30mph"},{goat_color:"red",goat_size:"medium",goat_weight:"26kg", goat_speed:"28mph"},{goat_color:"red",goat_size:"large",goat_weight:"177kg", goat_speed:"52mph"}]
+  div(class="container-fluid")
+    div(class="row")
+      each item,index in results
+        div(class="col-sm-2",onClick=`buy(${index})`)
+          p Color is #{item.goat_color}
+          p size is #{item.goat_size}
+          p weight is #{item.goat_weight}
+          p speed is #{item.goat_speed}
+          //- Bonus Logic
+  script.
+    function buy(thing) {
+      thing = thing+1;
+      alert(`You Purchased Item ${thing}`);
+    }
