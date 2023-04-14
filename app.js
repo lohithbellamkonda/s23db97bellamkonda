@@ -3,12 +3,44 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+var goat = require("./models/goat");
+
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+async function recreateDB(){
+  // Delete everything
+  await goat.deleteMany();
+  let instance1 = new goat({goat_color:"Black", size:'small',weight:50});
+  instance1.save().then(doc=>{ console.log("First object saved")} ).catch(err=>{  console.error(err)  });
+  let instance2 = new goat({goat_color:"red", size:'medium',weight:26});
+  instance2.save().then(doc=>{ console.log("Second object saved")} ).catch(err=>{  console.error(err)  }); 
+  let instance3 = new goat({goat_color:"blue", size:'large',weight:177});
+  instance3.save().then(doc=>{ console.log("Third object saved")} ).catch(err=>{  console.error(err)
+  });
+ }
+ let reseed = true;
+ if (reseed) {recreateDB();}
+ 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var goatRouter = require('./routes/goat');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -27,6 +59,10 @@ app.use('/users', usersRouter);
 app.use('/goat', goatRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+
+app.use('/resource', resourceRouter);
+
+
 
 
 // catch 404 and forward to error handler
