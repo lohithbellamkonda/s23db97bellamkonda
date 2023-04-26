@@ -2,17 +2,30 @@ extends layout
 
 block content
   h1= title
-  - let results = thegoats
+  <br>
+   - let Create = `dispatch(\"/goat/create\")`
+   button.btn( class="btn-primary ml-1", onclick= Create) Create
+  - let items = results;
   div(class="container-fluid")
     div(class="row")
-      each item,index in results
-        div(class="col-sm-2",onClick=`buy(${index})`)
-          p Color is #{item.goat_color}
-          p size is #{item.size}
-          p weight is #{item.weight}
-          //- Bonus Logic
+      each item,index in items
+        - let destination = `dispatch(\"/goat/update?id=${item._id}\")`
+        - let detail = `dispatch(\"/goat/detail?id=${item._id}\")`
+        - let Delete = `dispatch(\"/goat/delete?id=${item._id}\")`
+        div(class="col-sm-2" class="m-1")
+          h3 #{item.goat_color}
+          p #{item.goat_size}
+          p #{item.goat_weight}
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
+          br
+          br
+          button.btn( class="btn-secondary ml-1", onclick= detail) Details
+          br
+          br
+          button.btn( class="btn-danger ml-1", onclick= Delete) Delete
   script.
-    function buy(thing) {
-      thing = thing+1;
-      alert(`You Purchased Item ${thing}`);
+    function dispatch(path){
+      console.log(path);
+      window.location.href=path;
     }
+

@@ -1,0 +1,16 @@
+extends layout
+block content
+    h1= title
+    - let goat_color = toShow.goat_color
+    - let goat_size = toShow.goat_size
+    - letgoat_weight = toShow.goat_Title
+        div
+            div.row(id="goatAttr")
+                div(class="goatAttr mr-3") goat color is:
+                div #{goat_color}
+            div.row
+                div(class="goatAttr mr-3") goat size is:
+                div #{goat_size}
+            div.row
+                div(class="goatAttr mr-3") goat weight is:
+                div #{goat_weight}

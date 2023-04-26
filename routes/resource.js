@@ -8,13 +8,13 @@ var goat_controller = require('../controllers/goat');
 router.get('/', api_controller.api);
 /// goat ROUTES ///
 // POST request for creating a goat.
-router.post('/goats', goat_controller.goat_create_post);
+router.post('/goat', goat_controller.goat_create_post);
 // DELETE request to delete goat.
-router.delete('/goats/:id', goat_controller.goat_delete);
+router.delete('/goat/:id', goat_controller.goat_delete);
 // PUT request to update goat.
-router.put('/goats/:id', goat_controller.goat_update_put);
+router.put('/goat/:id', goat_controller.goat_update_put);
 // GET request for one goat.
-router.get('/goats/:id', goat_controller.goat_detail);
+router.get('/goat/:id', goat_controller.goat_detail);
 // GET request for list of all goat items.
-router.get('/goats', goat_controller.goat_list);
+router.get('/goat', goat_controller.goat_list);
 module.exports = router;

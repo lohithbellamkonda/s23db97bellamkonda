@@ -1,17 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p i am lohith bellamkonda from India  #{title}
-  button(type="button", class="btn btn-outline-warning", onclick="doReduce()") PressMe
-
-  div(id = "reduce") Reduce the value
-  a(href="goat") LINK
-  script.
-      count = 20
-      change  = -1
-      function doReduce(){
-          count = count+change;
-          change = change  - 1;
-          document.getElementById('reduce').innerHTML = 'Count '+ count +' Change ' + change;
-      }
+extends layout 
+ 
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/goat") Take me to goat
+    br 
+    a(href="/logout") Logout 
